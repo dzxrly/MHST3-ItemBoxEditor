@@ -4,7 +4,7 @@
 --- 11: Korean
 --- 12: Chinese (Traditional)
 --- 13: Chinese (Simplified)
-local coreApi = require("AreaEcoLevelCustomizer.utils")
+local coreApi = require("ItemBoxEditor.utils")
 
 local M = coreApi.createI18n({
     defaultLanguageIdx = 1,
