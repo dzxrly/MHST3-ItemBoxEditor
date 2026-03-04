@@ -30,31 +30,62 @@ end
 
 function M.drawUI()
     if state.cUserSaveDataParam ~= nil then
+        if state.searchInput == nil then
+            state.searchInput = ""
+        end
+
+        local isSearchChanged, newSearchInput = imgui.input_text(
+            i18n.getUIText("search_item_label"),
+            state.searchInput
+        )
+        if isSearchChanged then
+            state.searchInput = newSearchInput
+            dataHelper.applySearchFilter(newSearchInput)
+            state.currentSelectedItemIdx = 1
+        end
+
+        local filteredOptions = state.filteredComboItemOptions
+        if not filteredOptions or #filteredOptions.fixedId == 0 then
+            filteredOptions = {
+                displayText = { "(No matching items)" },
+                fixedId = { 0 },
+                currentNum = { 0 },
+                maxNum = { 0 },
+                originalIdx = { 1 }
+            }
+        end
+
+        if type(state.currentSelectedItemIdx) ~= "number" or state.currentSelectedItemIdx < 1 then
+            state.currentSelectedItemIdx = 1
+        elseif state.currentSelectedItemIdx > #filteredOptions.fixedId then
+            state.currentSelectedItemIdx = #filteredOptions.fixedId
+        end
+
         local currentSelectedItemInfo = {
-            fixedId = state.comboItemOptions.fixedId[state.currentSelectedItemIdx],
-            currentNum = tonumber(state.comboItemOptions.currentNum[state.currentSelectedItemIdx]),
-            maxNum = tonumber(state.comboItemOptions.maxNum[state.currentSelectedItemIdx]),
+            fixedId = filteredOptions.fixedId[state.currentSelectedItemIdx],
+            currentNum = tonumber(filteredOptions.currentNum[state.currentSelectedItemIdx]),
+            maxNum = tonumber(filteredOptions.maxNum[state.currentSelectedItemIdx]),
         }
 
         state.selectedItemChanged, state.currentSelectedItemIdx = imgui.combo(
             i18n.getUIText("select_item_label"),
             state.currentSelectedItemIdx,
-            state.comboItemOptions.displayText
+            filteredOptions.displayText
         )
         if state.selectedItemChanged then
             coreApi.log("Selected item changed: " ..
-                tostring(state.comboItemOptions.fixedId[state.currentSelectedItemIdx]))
-            currentSelectedItemInfo.fixedId = state.comboItemOptions.fixedId[state.currentSelectedItemIdx]
-            currentSelectedItemInfo.currentNum = tonumber(state.comboItemOptions.currentNum
-                [state.currentSelectedItemIdx])
-            currentSelectedItemInfo.maxNum = tonumber(state.comboItemOptions.maxNum[state.currentSelectedItemIdx])
+                tostring(filteredOptions.fixedId[state.currentSelectedItemIdx]))
+            currentSelectedItemInfo.fixedId = filteredOptions.fixedId[state.currentSelectedItemIdx]
+            currentSelectedItemInfo.currentNum = tonumber(filteredOptions.currentNum[state.currentSelectedItemIdx])
+            currentSelectedItemInfo.maxNum = tonumber(filteredOptions.maxNum[state.currentSelectedItemIdx])
         end
 
         if state.selectedItemChanged or customTargetNumInput == "" then
             customTargetNumInput = tostring(currentSelectedItemInfo.currentNum)
         end
 
-        imgui.begin_disabled(not dataHelper.isEnableRemove(currentSelectedItemInfo.currentNum))
+        imgui.begin_disabled(not dataHelper.isEnableRemove(currentSelectedItemInfo.currentNum) or
+            currentSelectedItemInfo.fixedId == 0)
         if imgui.button(i18n.getUIText("set_to_zero_btn"), config.SMALL_BTN) then
             dataHelper.removeItem(
                 currentSelectedItemInfo.fixedId,
@@ -66,7 +97,7 @@ function M.drawUI()
         imgui.end_disabled()
         imgui.same_line()
         imgui.begin_disabled(not dataHelper.isEnableAdd(currentSelectedItemInfo.currentNum,
-            currentSelectedItemInfo.maxNum))
+            currentSelectedItemInfo.maxNum) or currentSelectedItemInfo.fixedId == 0)
         if imgui.button(i18n.getUIText("set_to_max_btn", currentSelectedItemInfo.maxNum), config.SMALL_BTN) then
             dataHelper.addItem(
                 currentSelectedItemInfo.fixedId,
@@ -85,7 +116,7 @@ function M.drawUI()
             customTargetNumInput,
             currentSelectedItemInfo.maxNum
         )
-        imgui.begin_disabled(not isValidCustomNum)
+        imgui.begin_disabled(not isValidCustomNum or currentSelectedItemInfo.fixedId == 0)
         if imgui.button(i18n.getUIText("confirm_custom_num_btn"), config.SMALL_BTN) then
             local customTargetNum = tonumber(customTargetNumInput)
             local diff = customTargetNum - currentSelectedItemInfo.currentNum
@@ -104,7 +135,7 @@ function M.drawUI()
             end
         end
         imgui.end_disabled()
-        if not isValidCustomNum then
+        if not isValidCustomNum and currentSelectedItemInfo.fixedId ~= 0 then
             imgui.text_colored(
                 i18n.getUIText(customNumErrorKey, currentSelectedItemInfo.maxNum),
                 config.ERROR_COLOR

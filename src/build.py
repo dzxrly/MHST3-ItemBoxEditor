@@ -15,7 +15,7 @@ FMM_CONFIG = {
     "author": ", ".join(CONTRIBUTORS),
     "screenshot": "src/assets/screenshot.png",
     "category": "Gameplay",
-    "homepage": "https://www.nexusmods.com/#",
+    "homepage": "https://www.nexusmods.com/monsterhunterstories3twistedreflection/mods/6",
 }
 # source file settings
 ORIGIN_LUA_FILE = "src/item_box_editor.lua"
