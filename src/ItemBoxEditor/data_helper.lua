@@ -53,6 +53,35 @@ function M.isInAllowedCategory(cItemDataCData)
     return false
 end
 
+function M.setTradePtsOptions()
+    if state.cSaveDataHelperItem ~= nil and state.tradePtsTypeFixedEnum ~= nil then
+        local options = {
+            displayText = {},
+            fixedId = {},
+            currentNum = {}
+        }
+        for idx = 1, #state.tradePtsTypeFixedEnum.fixedId do
+            local fixedId = state.tradePtsTypeFixedEnum.fixedId[idx]
+            local currentNum = state.cSaveDataHelperItem:call("getTradeRankPoints(app.ItemRank.LEVEL_Fixed)", fixedId)
+            local displayText = i18n.getUIText("pts_list")[idx] .. " - " .. string.format("%d", currentNum)
+            table.insert(options.displayText, displayText)
+            table.insert(options.fixedId, fixedId)
+            table.insert(options.currentNum, currentNum)
+        end
+        state.comboTradePtsOptions = options
+    end
+end
+
+function M.updateTradePtsNum(tradePtsFixedId, newNum)
+    if state.cSaveDataHelperItem ~= nil and state.cUserSaveDataParam ~= nil then
+        coreApi.executeUserCmd(function()
+            state.cSaveDataHelperItem:call("addTradeRankPoints(app.ItemRank.LEVEL_Fixed, System.Int32)",
+                tradePtsFixedId, newNum)
+            M.setTradePtsOptions()
+        end)
+    end
+end
+
 function M.setComboItemOptions()
     if state.itemFixedIdEnum == nil or state.cSaveDataHelperItem == nil or state.userDataCItemData == nil then
         return
@@ -111,7 +140,9 @@ function M.setComboItemOptions()
 end
 
 function M.applySearchFilter(searchText)
-    if state.comboItemOptions == nil then return end
+    if state.comboItemOptions == nil then
+        return
+    end
 
     local filtered = {
         displayText = {},
@@ -158,11 +189,7 @@ function M.addItem(itemFixedId, numToAdd, selectedItemIdx)
         coreApi.executeUserCmd(function()
             state.cSaveDataHelperItem:call(
                 "addSaveItem(app.ItemID.ID_Fixed, System.UInt32, app.savedata.cUserSaveDataParam, System.Boolean)",
-                itemFixedId,
-                numToAdd,
-                state.cUserSaveDataParam,
-                true
-            )
+                itemFixedId, numToAdd, state.cUserSaveDataParam, true)
             M.setComboItemOptions()
             if selectedItemIdx ~= nil then
                 state.currentSelectedItemIdx = selectedItemIdx
@@ -175,11 +202,8 @@ function M.removeItem(itemFixedId, numToRemove, selectedItemIdx)
     local flag = false
     if state.cSaveDataHelperItem ~= nil and state.cUserSaveDataParam ~= nil then
         coreApi.executeUserCmd(function()
-            flag = state.cSaveDataHelperItem:call(
-                "subSaveItem(app.ItemID.ID_Fixed, System.UInt32)",
-                itemFixedId,
-                numToRemove
-            )
+            flag = state.cSaveDataHelperItem:call("subSaveItem(app.ItemID.ID_Fixed, System.UInt32)", itemFixedId,
+                numToRemove)
             M.setComboItemOptions()
             if selectedItemIdx ~= nil then
                 state.currentSelectedItemIdx = selectedItemIdx

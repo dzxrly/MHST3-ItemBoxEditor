@@ -21,6 +21,8 @@ local M = coreApi.createI18n({
             custom_num_empty = "数量を入力してください。",
             custom_num_not_positive_integer = "正の整数を入力してください。",
             custom_num_out_of_range = "有効範囲は1〜%sです。",
+            pts_editor_title = "ポイントエディター",
+            pts_list = {"ブロンズポイント", "シルバーポイント", "ゴールドポイント"}
         },
         [1] = {
             save_data_warning = "Please BACK UP your save data before use!!!",
@@ -34,6 +36,8 @@ local M = coreApi.createI18n({
             custom_num_empty = "Please enter an amount.",
             custom_num_not_positive_integer = "Please enter a positive integer.",
             custom_num_out_of_range = "Allowed range is 1 to %s.",
+            pts_editor_title = "Trade Points Editor",
+            pts_list = {"Bronze Points", "Silver Points", "Gold Points"}
         },
         [11] = {
             save_data_warning = "사용 전 반드시 세이브 데이터를 백업해 주세요!!!",
@@ -47,6 +51,8 @@ local M = coreApi.createI18n({
             custom_num_empty = "수량을 입력해 주세요.",
             custom_num_not_positive_integer = "양의 정수를 입력해 주세요.",
             custom_num_out_of_range = "허용 범위는 1~%s입니다.",
+            pts_editor_title = "거래 포인트 편집기",
+            pts_list = {"브론즈 포인트", "실버 포인트", "골드 포인트"}
         },
         [12] = {
             save_data_warning = "使用前請務必備份存檔！！！",
@@ -60,6 +66,8 @@ local M = coreApi.createI18n({
             custom_num_empty = "請輸入數量。",
             custom_num_not_positive_integer = "請輸入正整數。",
             custom_num_out_of_range = "允許範圍為 1 到 %s。",
+            pts_editor_title = "交易点数编辑器",
+            pts_list = {"青銅點數", "白銀點數", "黃金點數"}
         },
         [13] = {
             save_data_warning = "使用前请务必备份存档！！！",
@@ -73,6 +81,8 @@ local M = coreApi.createI18n({
             custom_num_empty = "请输入数量。",
             custom_num_not_positive_integer = "请输入正整数。",
             custom_num_out_of_range = "允许范围是 1 到 %s。",
+            pts_editor_title = "交易点数编辑器",
+            pts_list = {"青铜点数", "白银点数", "黄金点数"}
         }
     }
 })

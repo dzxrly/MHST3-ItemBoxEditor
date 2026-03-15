@@ -12,6 +12,7 @@ local function createState()
         cUserSaveDataParam = nil,
         cSaveDataHelperOption = nil,
         cSaveDataHelperItem = nil,
+        tradePtsTypeFixedEnum = createEnumState(),
         itemFixedIdEnum = createEnumState(),
         itemMainCategoryEnum = createEnumState(),
         userDataCItemData = nil,
@@ -28,6 +29,13 @@ local function createState()
         },
         currentSelectedItemIdx = 1,
         selectedItemChanged = false,
+        comboTradePtsOptions = {
+            displayText = {},
+            fixedId = {},
+            currentNum = {}
+        },
+        currentSelectedTradePtsIdx = 1,
+        selectedTradePtsChanged = false
     }
 end
 
