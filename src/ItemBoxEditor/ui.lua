@@ -108,6 +108,8 @@ function M.drawUI()
         end
         imgui.end_disabled()
 
+        imgui.new_line()
+
         _, customTargetNumInput = imgui.input_text(
             i18n.getUIText("custom_num_label"),
             customTargetNumInput
