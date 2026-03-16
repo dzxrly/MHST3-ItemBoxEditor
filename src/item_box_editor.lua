@@ -37,6 +37,7 @@ re.on_draw_ui(function()
                 isBtnClicked = true
             end)
         end
+        imgui.text_colored(i18n.getUIText("click_read_item_box_btn_tips"), config.TIPS_COLOR)
 
         imgui.new_line()
         if state.cUserSaveDataParam ~= nil and isBtnClicked and #state.comboItemOptions.displayText > 0 then
