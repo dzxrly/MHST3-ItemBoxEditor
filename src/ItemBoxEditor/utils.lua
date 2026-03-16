@@ -438,9 +438,9 @@ function M.createI18n(config)
         return tonumber(context.languageIdx) or context.defaultLanguageIdx
     end
 
-    function context.initLanguage(cSaveDataHelperOption)
+    function context.initLanguage()
         local existingLangOpts = M.collectTableNumberKeys(context.text)
-        local inGameLang = M.getCharacterLanguageFromOption(cSaveDataHelperOption)
+        local inGameLang = M.getCharacterLanguageFromOption()
         context.languageIdx = M.getSupportedLanguageOrDefault(inGameLang, existingLangOpts, context.defaultLanguageIdx)
         return context.languageIdx
     end
@@ -449,8 +449,8 @@ function M.createI18n(config)
         return M.getLocalizedText(context.text, key, getCurrentTextLanguage(), context.defaultLanguageIdx, ...)
     end
 
-    function context.getTextLanguage(guid, cSaveDataHelperOption)
-        local textLang = M.getCharacterLanguageFromOption(cSaveDataHelperOption) or getCurrentTextLanguage()
+    function context.getTextLanguage(guid)
+        local textLang = M.getCharacterLanguageFromOption() or getCurrentTextLanguage()
         return M.getGuidTextByLanguage(guid, textLang)
     end
 

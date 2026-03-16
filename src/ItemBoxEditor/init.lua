@@ -46,7 +46,7 @@ function M.modInit()
     state.userDataCItemData = sdk.get_managed_singleton("app.VariousDataManager"):get_field("_Setting"):get_field(
         "_ItemData"):get_field("_ItemData")
 
-    i18n.initLanguage(state.cSaveDataHelperOption)
+    i18n.initLanguage()
     coreApi.log("Language Index: " .. tostring(i18n.languageIdx))
 
     itemFixedIdEnumParser()
