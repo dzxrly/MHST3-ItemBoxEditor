@@ -23,7 +23,11 @@ local M = coreApi.createI18n({
             custom_num_not_positive_integer = "正の整数を入力してください。",
             custom_num_out_of_range = "有効範囲は1〜%sです。",
             pts_editor_title = "ポイントエディター",
-            pts_list = {"ブロンズポイント", "シルバーポイント", "ゴールドポイント"}
+            pts_list = {"ブロンズポイント", "シルバーポイント", "ゴールドポイント"},
+            advanced_options_title = "詳細オプション",
+            advanced_options_tips = "内容を理解している場合を除き、\n以下のオプションを変更しないでください！\n変更前に必ずセーブデータをバックアップしてください！",
+            set_all_item_to_zero_btn = "すべてのアイテムを0に設定",
+            set_all_item_to_max_btn = "すべてのアイテムを最大に設定"
         },
         [1] = {
             save_data_warning = "Please BACK UP your save data before use!!!",
@@ -39,7 +43,11 @@ local M = coreApi.createI18n({
             custom_num_not_positive_integer = "Please enter a positive integer.",
             custom_num_out_of_range = "Allowed range is 1 to %s.",
             pts_editor_title = "Trade Points Editor",
-            pts_list = {"Bronze Points", "Silver Points", "Gold Points"}
+            pts_list = {"Bronze Points", "Silver Points", "Gold Points"},
+            advanced_options_title = "Advanced Options",
+            advanced_options_tips = "Unless you know what you are doing,\ndo not modify the options below!\nPlease back up your save data before making any changes!",
+            set_all_item_to_zero_btn = "Set All Items to 0",
+            set_all_item_to_max_btn = "Set All Items to Max"
         },
         [11] = {
             save_data_warning = "사용 전 반드시 세이브 데이터를 백업해 주세요!!!",
@@ -55,7 +63,11 @@ local M = coreApi.createI18n({
             custom_num_not_positive_integer = "양의 정수를 입력해 주세요.",
             custom_num_out_of_range = "허용 범위는 1~%s입니다.",
             pts_editor_title = "거래 포인트 편집기",
-            pts_list = {"브론즈 포인트", "실버 포인트", "골드 포인트"}
+            pts_list = {"브론즈 포인트", "실버 포인트", "골드 포인트"},
+            advanced_options_title = "고급 옵션",
+            advanced_options_tips = "무엇을 하는지 정확히 알지 못한다면,\n아래 옵션을 임의로 변경하지 마세요!\n변경 전에 반드시 세이브 데이터를 백업해 주세요!",
+            set_all_item_to_zero_btn = "모든 아이템을 0으로 설정",
+            set_all_item_to_max_btn = "모든 아이템을 최대로 설정"
         },
         [12] = {
             save_data_warning = "使用前請務必備份存檔！！！",
@@ -71,7 +83,11 @@ local M = coreApi.createI18n({
             custom_num_not_positive_integer = "請輸入正整數。",
             custom_num_out_of_range = "允許範圍為 1 到 %s。",
             pts_editor_title = "交易点数编辑器",
-            pts_list = {"青銅點數", "白銀點數", "黃金點數"}
+            pts_list = {"青銅點數", "白銀點數", "黃金點數"},
+            advanced_options_title = "進階選項",
+            advanced_options_tips = "除非你知道自己在做什麼，\n否則不要隨意修改以下選項！\n修改前請務必備份存檔！",
+            set_all_item_to_zero_btn = "所有物品設為0",
+            set_all_item_to_max_btn = "所有物品設為最大"
         },
         [13] = {
             save_data_warning = "使用前请务必备份存档！！！",
@@ -87,7 +103,11 @@ local M = coreApi.createI18n({
             custom_num_not_positive_integer = "请输入正整数。",
             custom_num_out_of_range = "允许范围是 1 到 %s。",
             pts_editor_title = "交易点数编辑器",
-            pts_list = {"青铜点数", "白银点数", "黄金点数"}
+            pts_list = {"青铜点数", "白银点数", "黄金点数"},
+            advanced_options_title = "高级选项",
+            advanced_options_tips = "除非你知道自己在做什么，\n否则不要随意修改以下选项！\n修改前请务必备份存档！",
+            set_all_item_to_zero_btn = "所有物品设为0",
+            set_all_item_to_max_btn = "所有物品设为最大"
         }
     }
 })

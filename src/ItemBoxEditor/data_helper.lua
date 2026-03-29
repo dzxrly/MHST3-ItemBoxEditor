@@ -213,4 +213,43 @@ function M.removeItem(itemFixedId, numToRemove, selectedItemIdx)
     return flag
 end
 
+function M.setAllItemsToZero()
+    if state.cSaveDataHelperItem == nil or state.cUserSaveDataParam == nil or state.comboItemStaticOptions == nil then
+        return
+    end
+
+    coreApi.executeUserCmd(function()
+        for i = 1, #state.comboItemStaticOptions.fixedId do
+            local itemFixedId = state.comboItemStaticOptions.fixedId[i]
+            local currentNum = M.getCurrentItemNum(itemFixedId)
+            if currentNum > 0 then
+                state.cSaveDataHelperItem:call("subSaveItem(app.ItemID.ID_Fixed, System.UInt32)", itemFixedId,
+                    currentNum)
+            end
+        end
+        M.setComboItemOptions()
+    end)
+end
+
+function M.setAllItemsToMax()
+    if state.cSaveDataHelperItem == nil or state.cUserSaveDataParam == nil or state.comboItemStaticOptions == nil then
+        return
+    end
+
+    coreApi.executeUserCmd(function()
+        for i = 1, #state.comboItemStaticOptions.fixedId do
+            local itemFixedId = state.comboItemStaticOptions.fixedId[i]
+            local maxNum = state.comboItemStaticOptions.maxNum[i] or config.MAX_NUM
+            local currentNum = M.getCurrentItemNum(itemFixedId)
+            local diff = maxNum - currentNum
+            if diff > 0 then
+                state.cSaveDataHelperItem:call(
+                    "addSaveItem(app.ItemID.ID_Fixed, System.UInt32, app.savedata.cUserSaveDataParam, System.Boolean)",
+                    itemFixedId, diff, state.cUserSaveDataParam, true)
+            end
+        end
+        M.setComboItemOptions()
+    end)
+end
+
 return M
